@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>サンプル</title>
+    <link rel="stylesheet" href="../../stylesheets/style.css" />
+  </head>
+  <body>
+    <style>
+      table {
+        margin-top: 20px;
+      }
+    </style>
+
+    <button id="create-button">+新規登録</button>
+    <div class="create-form" id="create-form" style="display: none">
+      <form>
+        <label for="taskName">タスク名</label>
+        <input type="text" id="taskName" name="taskName" />
+        <label for="deadline">期限</label>
+        <input type="text" id="deadline" name="deadline" />
+        <label for="category">カテゴリ</label>
+        <select id="category" name="category">
+          <option value="1">生活</option>
+          <option value="2">勉強</option>
+          <option value="3">仕事</option>
+          <option value="4">趣味</option>
+        </select>
+      </form>
+
+      <button class="display-none">キャンセル</button>
+      <button class="display-none" id="create-task">登録</button>
+    </div>
+    <ul>
+      <li>
+        <span>犬の散歩をする</span>
+        <span>2022/4/12</span>
+        <span><button class="update-button">更新</button></span>
+        <span>
+          <button class="delete" data-delete="犬の散歩をする">削除</button>
+        </span>
+      </li>
+      <li>
+        <span>勉強をする</span>
+        <span>2022/4/12</span>
+        <span><button class="update-button">更新</button></span>
+        <span
+          ><button class="delete" data-delete="勉強をする">削除</button></span
+        >
+      </li>
+    </ul>
+
+    <div class="update-form" id="update-form" style="display: none">
+      <form>
+        <label for="task">タスク名</label>
+        <input type="text" id="task" name="task" />
+        <label for="deadline">期限</label>
+        <input type="text" id="deadline" name="deadline" />
+        <label for="category">カテゴリ</label>
+        <select id="category" name="category">
+          <option value="1">生活</option>
+          <option value="2">勉強</option>
+          <option value="3">仕事</option>
+          <option value="4">趣味</option>
+        </select>
+        <label for="status">ステータス</label>
+        <select id="status" name="status">
+          <option value="1">完了</option>
+          <option value="2">作業中</option>
+          <option value="3">未実施</option>
+        </select>
+      </form>
+
+      <button class="display-none">キャンセル</button>
+      <button class="display-none" id="update-task">保存</button>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      // 削除ボタン押下時
+      $(".delete").on("click", function () {
+        const taskName = $(this).data("delete");
+        alert(`下記の内容を削除します。\n ${taskName}`);
+      });
+
+      // 新規登録ボタン押下時
+      $("#create-button").on("click", function () {
+        $("#create-form").show();
+      });
+
+      // 更新ボタン押下時
+      $(".update-button").on("click", function () {
+        $("#update-form").show();
+      });
+
+      // フォームを閉じたいとき
+      $(".display-none").on("click", function () {
+        $("#create-form").hide();
+        $("#update-form").hide();
+      });
+    </script>
+  </body>
+</html>
