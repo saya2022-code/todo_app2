@@ -262,6 +262,7 @@
       crossorigin="anonymous"
     ></script>
 
+    <!-- ⑩javascript/index.jsのhttpPost関数などを読み込む -->
     <script src="../javascripts/index.js"></script>
 
     <script>
@@ -286,6 +287,8 @@
           deadline: $("[name=deadline]").val(),
           category: $("[name=category]").val(),
         };
+
+        //⑩のhttpPostを利用し、(url, data)を取得。APIを実行する
         const response = await httpPost(
           "//" + window.location.host + "/api/tasks",
           data

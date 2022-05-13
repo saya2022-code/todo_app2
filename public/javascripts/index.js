@@ -4,7 +4,7 @@ const httpGet = async function (url) {
     const response = await fetch(url, {
       method: "GET", // GET
     });
-    return response.json(); // JSON のレスポンスを JavaScript のオブジェクトに変換
+    return response.json();
   } catch (err) {
     console.log(err);
   }
@@ -12,6 +12,7 @@ const httpGet = async function (url) {
 
 // 登録用API実行メソッド
 const httpPost = async function (url, data) {
+  //⑧index.jsのAPIエンドポイント、tasks.jsのbodyを変数に入れる
   console.log(url);
   console.log(data);
   try {
@@ -22,7 +23,7 @@ const httpPost = async function (url, data) {
       },
       body: JSON.stringify(data),
     });
-    return response.json(); // JSON のレスポンスを JavaScript のオブジェクトに変換
+    return response.json(); //⑨JSONのレスポンスを JavaScriptのオブジェクトに変換
   } catch (err) {
     console.log(err);
   }
