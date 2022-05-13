@@ -14,7 +14,7 @@ postTasks = async function (body) {
     connection = await mysql.createConnection(config.dbSetting);
     // ここに SQL を記述する
     const sql =
-      "INSERT INTO todoapp.t_task (task_name, deadline, category_id) VALUES (?,?,?);";
+      "INSERT INTO todo_app２.t_task (task_name, deadline, category_id) VALUES (?,?,?);";
     let d = [body.taskName, body.deadline, body.category];
     const [rows, fields] = await connection.query(sql, d);
 
