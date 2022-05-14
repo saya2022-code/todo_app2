@@ -8,17 +8,31 @@ const config = require("../config.js");
  *
  * @returns レスポンス JSON
  */
+
+//⑤ 13~20行、33~40行は決まり文句のコード。変わるのはSQLの記述のみ
 postTasks = async function (body) {
-  let connection = null;
+  console.log(body);
+
+  let connection = null; //DB接続の初期化
   try {
+    //維持ならtryの処理(SQL)をする
+
+    //SQL接続
     connection = await mysql.createConnection(config.dbSetting);
-    // ここに SQL を記述する
+
+    // ⑥ここに SQL を記述する(DBに登録なのでInsert)
     const sql =
       "INSERT INTO todo_app２.t_task (task_name, deadline, category_id) VALUES (?,?,?);";
+    // VALUES (?,?,?)は下の「body.taskName」の値が入る
     let d = [body.taskName, body.deadline, body.category];
     const [rows, fields] = await connection.query(sql, d);
 
-    // console.log(rows);
+    // console.log(rows); //取得
+    // console.log(d); //取得
+    //console.log(fields); //undefined
+
+    //⑦fieldsはundefinedなので、rowsのみを返す。
+    //次はjavascript/index.jsでindex.htmlにAPIを反映させる準備
     return rows;
   } catch (err) {
     console.log(err);
