@@ -6,12 +6,7 @@ var router = express.Router();
 const tasks = require("../../src/tasks.js");
 
 /* タスクを登録するルーティング */
-// router.post("/tasks", async function (req, res, next) {
-//   const postTasks = await tasks.postTasks(req.body);
-//   res.send(postTasks);
-// });
-
-//②router(express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
+//②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
 router.post("/tasks", async function (req, res, next) {
   //③tasks.jsでexports.postTasksしているので、「tasks.postTasks(reqされたbody)」で取得し、変数(postTasks)に代入
   //req.body = tasks.jsの11行目「async function (body) 〜」のbody
@@ -24,8 +19,16 @@ router.post("/tasks", async function (req, res, next) {
 
 /* タスク一覧を取得するルーティング*/
 //routerはexpress
+// router.get("/tasks", async function (req, res, next) {
+//   const getTasks = await tasks.getTasks();
+//   res.send(getTasks);
+// });
+
+//②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
 router.get("/tasks", async function (req, res, next) {
+  //③tasks.jsでexports.getTasksしているので、「tasks.getTasks()」で取得し、変数(getTasks)に代入
   const getTasks = await tasks.getTasks();
+
   res.send(getTasks);
 });
 

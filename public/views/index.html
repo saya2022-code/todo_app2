@@ -88,6 +88,10 @@
           </div>
         </li>
       </ul>
+
+      <ul id="task-list" class="task-list">
+        <!-- ここにreturn -->
+      </ul>
     </div>
 
     <!-- モーダル 新規登録 -->
@@ -272,6 +276,24 @@
           "//" + window.location.host + "/api/tasks"
         );
         console.log(response);
+
+        // 初期描画時の処理を追記
+        //API から取得したresponsを map を使ってループさせ、<li> タグを作成
+        const list = response.map((item) => {
+          console.log(item); //取得
+
+          //リストを表示
+          return `
+          <li>
+              <span>${item.task_name}</span>
+              <span>${item.deadline}</span>
+              <span><button id="update-button" data-id="${item.id}">更新</button></span>
+              <span><button id="delete-button" data-id="${item.id} data-delete="${item.task_name}">削除</button></span>
+          </li>`;
+        });
+        console.log(list); //取得
+        //ulタグにlistを追加
+        $("ul#task-list").append(list); //ulを使う場合、「.id名」ではなく、「タグ名#クラス名」の方が良い。
       });
 
       // 削除
@@ -297,6 +319,8 @@
           data
         );
         console.log(response);
+        //画面をリロード
+        window.location.reload();
       });
     </script>
   </body>
