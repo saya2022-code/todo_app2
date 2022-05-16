@@ -57,3 +57,15 @@ const httpDelete = async function (url) {
     console.log(err);
   }
 };
+
+//未処理タスクの取得メソッド
+const getTasks_yet = async function (url) {
+  try {
+    const response = await fetch(url, {
+      method: "GET", // GET
+    });
+    return response.json();
+  } catch (err) {
+    console.log(err);
+  }
+};

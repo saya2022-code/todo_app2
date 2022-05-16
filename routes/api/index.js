@@ -55,3 +55,12 @@ router.patch("/tasks/:id", async function (req, res, next) {
   res.send(patchTasksId);
 });
 module.exports = router;
+
+/* 未完了のタスクを取得するルーティング */
+//②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
+router.get("/tasks/status/:id", async function (req, res, next) {
+  const getTasks_status = await tasks.getTasks_status(req.params.id);
+  console.log(getTasks_status); //
+
+  res.send(getTasks_status);
+});
