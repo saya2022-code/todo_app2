@@ -4,6 +4,7 @@ var router = express.Router();
 
 //①task.jsのpostTasks(SQL処理)などを使うため、読み込む
 const tasks = require("../../src/tasks.js");
+// const lists = require("../../src/lists.js");
 
 /* タスクを登録するルーティング */
 //②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
@@ -18,12 +19,6 @@ router.post("/tasks", async function (req, res, next) {
 });
 
 /* タスク一覧を取得するルーティング*/
-//routerはexpress
-// router.get("/tasks", async function (req, res, next) {
-//   const getTasks = await tasks.getTasks();
-//   res.send(getTasks);
-// });
-
 //②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
 router.get("/tasks", async function (req, res, next) {
   //③tasks.jsでexports.getTasksしているので、「tasks.getTasks()」で取得し、変数(getTasks)に代入
@@ -39,8 +34,15 @@ router.delete("/tasks/:id", async function (req, res, next) {
 });
 
 /* タスクを1件取するルーティング */
+// router.get("/tasks/:id", async function (req, res, next) {
+//   const getTasksId = await tasks.getTasksId(req.params.id);
+//   res.send(getTasksId);
+// });
+//②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
 router.get("/tasks/:id", async function (req, res, next) {
   const getTasksId = await tasks.getTasksId(req.params.id);
+  console.log(getTasksId); //
+
   res.send(getTasksId);
 });
 

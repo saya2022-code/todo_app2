@@ -7,14 +7,23 @@ a {
   color: #00b7ff;
 }
 
-li {
-  margin-top: 20px;
+ul {
+  width: 80%;
 }
-
 li {
   list-style-type: none;
   border: 1px solid rgba(0, 0, 0, 0.125);
   padding: 10px;
+}
+
+.list-groups {
+  position: relative;
+  display: block;
+  padding: 0.75rem 1.25rem;
+  margin-top: 10px;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 li.category-orange {
