@@ -267,6 +267,8 @@
       crossorigin="anonymous"
     ></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!--⑪ javascript/index.jsのhttpPost関数などを読み込む -->
     <script src="../javascripts/index.js"></script>
     <script src="../javascripts/add.js"></script>
@@ -311,6 +313,22 @@
             statusClass = "category-green";
           }
 
+          const today = new Date();
+          const tyear = today.getFullYear();
+          const tmonth = today.getMonth() + 1;
+          const tday = today.getDate();
+          const tdeadline = tyear + "年" + tmonth + "月" + tday + "日";
+          console.log(tdeadline);
+          console.log(deadline);
+
+          if (deadline == tdeadline && !(item.task_status == 3)) {
+            Swal.fire(
+              "未完タスクあり",
+              "今日までのタスクを完了させてください",
+              "warning"
+              )
+          }
+
           //リストを表示
           return `
           <li class="list-groups">
@@ -340,6 +358,11 @@
         console.log(list); //取得
         //ulタグにlistを追加
         $("ul#task-list").append(list); //ulを使う場合、「.id名」ではなく、「タグ名#クラス名」の方が良い。
+
+        $("#tab1").on("click", async function () {
+        $('ul#task-list').show();
+
+        });
       });
 
       //未処理タスクを表示
@@ -413,9 +436,19 @@
         console.log(listyet); //取得
         //ulタグにlistを追加
         $("ul#task-list-yet").append(listyet); //ulを使う場合、「.id名」ではなく、「タグ名#クラス名」の方が良い。
-        
-      });
 
+        // $("#tab1").on("click", async function () {
+        //   $("ul#task-list-yet").hide(listyet);
+        // });
+
+        // $("#tab3").on("click", async function () {
+        //   $("ul#task-list-yet").show(listyet);
+        // });
+
+      });
+      
+
+      
       //１件取得
       //更新ボタンを押した時の処理
       $(document).on("click", "#altermodal-get", async function () {
