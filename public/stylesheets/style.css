@@ -26,22 +26,22 @@ li {
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-li.category-orange {
+.category-orange {
   border-left-color: orange;
   border-left-width: 20px;
 }
 
-li.category-green {
+.category-green {
   border-left-color: green;
   border-left-width: 20px;
 }
 
-li.category-blue {
+.category-blue {
   border-left-color: blue;
   border-left-width: 20px;
 }
 
-li.category-red {
+.category-red {
   border-left-color: red;
   border-left-width: 20px;
 }

@@ -120,13 +120,16 @@ getTasksId = async function (id) {
  * @returns レスポンス JSON
  */
 patchTasksId = async function (id, body) {
+  //api/index.jsの(req.params.id, req.body)を変数に代入
   let connection = null;
   try {
     connection = await mysql.createConnection(config.dbSetting);
     // ここに SQL を記述する
     const sql =
       "UPDATE t_task SET task_name=?, deadline=?, category_id=?, task_status=?, updated_at=? WHERE id=?;";
+
     let d = [
+      //sqlで「?」となるカラム名を指定
       body.taskName,
       body.deadline,
       body.category,

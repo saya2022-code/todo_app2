@@ -31,64 +31,6 @@
         +新規登録
       </button>
 
-      <ul class="list-group">
-        <li class="list-group-item category-orange">
-          <div class="row align-items-center">
-            <div class="col-6">
-              <div>犬の散歩をする</div>
-            </div>
-            <div class="col-3">
-              <div>2022年4月14日</div>
-            </div>
-            <div class="col-3">
-              <button
-                type="button"
-                class="btn btn-primary"
-                data-toggle="modal"
-                data-target="#update-modal"
-              >
-                更新
-              </button>
-
-              <button
-                type="button"
-                class="btn btn-danger delete"
-                data-delete="犬の散歩をする"
-              >
-                削除
-              </button>
-            </div>
-          </div>
-        </li>
-        <li class="list-group-item category-green">
-          <div class="row align-items-center">
-            <div class="col-6">
-              <div>勉強をする</div>
-            </div>
-            <div class="col-3">
-              <div>2022年4月14日</div>
-            </div>
-            <div class="col-3">
-              <button
-                type="button"
-                class="btn btn-primary"
-                data-toggle="modal"
-                data-target="#update-modal"
-              >
-                更新
-              </button>
-              <button
-                type="button"
-                class="btn btn-danger delete"
-                data-delete="勉強をする"
-              >
-                削除
-              </button>
-            </div>
-          </div>
-        </li>
-      </ul>
-
       <ul id="task-list" class="task-list">
         <!-- ここにreturn -->
       </ul>
@@ -230,8 +172,55 @@
         </div>
       </div>
     </div>
-
     <!-- モーダル 更新 END -->
+
+    <!-- 削除Modal -->
+    <div
+      class="modal fade"
+      id="deletemodal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="deletemodal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deletemodal">
+              下記のタスクを削除しますか？
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-bodys" id="deletemodal-body">
+            <p id="memo"></p>
+          </div>
+          <div class="deletemodal-footer">
+            <button
+              type="button"
+              id="cancel-button"
+              class="btn btn-secondary btn-sm"
+              data-dismiss="modal"
+            >
+              キャンセル
+            </button>
+            <button
+              type="button"
+              id="deletemodal-get"
+              class="btn btn-primary btn-sm"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -253,6 +242,7 @@
 
     <!--⑪ javascript/index.jsのhttpPost関数などを読み込む -->
     <script src="../javascripts/index.js"></script>
+    <script src="../javascripts/add.js"></script>
 
     <script>
       // 一覧取得
@@ -274,12 +264,32 @@
           const day = createDate.getDate();
           const deadline = year + "年" + month + "月" + day + "日";
 
+          //ステータスの表示をテキストに変換する。カラーをつける。
+          //ステータスの値(1~3)を取得し、判定値として使う
+          const statusValue = item.task_status;
+
+          //任意のテキストとカラーを入れるため、空の配列を用意する
+          var status = "";
+          statusClass = "";
+
+          ///ステータスの値(1~3)で入れるテキストとカラーを決める
+          if (statusValue === 1) {
+            status = "未完了";
+            statusClass = "category-red";
+          } else if (statusValue === 2) {
+            status = "進行中";
+            statusClass = "category-bule";
+          } else if (statusValue === 3) {
+            status = "終了";
+            statusClass = "category-green";
+          }
+
           //リストを表示
           return `
           <li class="list-groups">
             <div class="row align-items">
               <div >
-                <span></span>
+                <span class=${statusClass}></span>
               </div>
               <div class="col-4">
                 <span>${item.task_name}</span>
@@ -290,12 +300,12 @@
               <div class="col-1">
                 <span>${item.category_name}</span>
                 </div>
-              <div class="col-1">
-                <span>${item.task_status}</span>
+              <div class="col-1.5">
+                <span>${status}</span>
                 </div>
               <div class="col-3">
-                <button type="button" class="btn btn-primary "data-toggle="modal" data-target="#altermodal" id="altermodal-get" data-id=${item.id}>更新</button>
-                <span><button id="delete-button" data-id="${item.id} data-delete="${item.task_name}" class="btn btn-danger" data-toggle="modal">削除</button></span>
+                <span><button type="button" class="btn btn-primary "data-toggle="modal" data-target="#altermodal" id="altermodal-get" data-id=${item.id}>更新</button></span>
+                <span><button id="delete-button" data-id="${item.id}" data-delete="${item.task_name}" class="btn btn-danger" data-toggle="modal"  data-target="#deletemodal">削除</button></span>
               </div>
             </div>
           </li>`;
@@ -306,14 +316,16 @@
       });
 
       //１件取得
+      //更新ボタンを押した時の処理
       $(document).on("click", "#altermodal-get", async function () {
-        //更新するid値を特定するため、id=”update-button” に付与されていた data属性の値を取得します
-        const id = $(this).data("id");
-        console.log($(this).data("id")); //
+        //更新するid値を特定するため、id=”altermodal-get”(=$(this)) に付与されていた data属性の値(data-id=${item.id})を取得
+        const id = $(this).data("id"); //data("id")＝data-id
+        // console.log($(this).data("id"));
+
         const response = await httpGet(
           "//" + window.location.host + `/api/tasks/${id}`
         );
-        console.log(response);
+        // console.log(response);
 
         //日付を 年月日に変換
         const date = new Date(response[0].deadline);
@@ -322,22 +334,78 @@
         const day = ("0" + date.getDate()).slice(-2); //右から二桁目まで取得
         const deadline = `${year}-${month}-${day}`;
 
-        console.log($("#altermodal input[name=taskName]")); //w.fn.init [prevObject: w.fn.init(1)]
+        // console.log($("#altermodal input[name=taskName]")); //w.fn.init [input#taskName.form-control, prevObject: w.fn.init(1)]
 
         //初期値のセット
-        //モーダルのid="altermodal"
+        //#altermodal(=モーダルのid="altermodal")に取得したデータ(response[0],カラム名)の文字列(.val)を入れる
         $("#altermodal input[name=id]").val(response[0].id);
         $("#altermodal input[name=taskName]").val(response[0].task_name);
         $("#altermodal input[name=deadline]").val(deadline);
-        $("#altermodal select[name=category]").val(response[0].category_id);
-        $("#altermodal select[name=status]").val(response[0].task_status);
+        $("#altermodal select[name=category]").val(response[0].category_id); //選択肢があるので、selectにする
+        $("#altermodal select[name=status]").val(response[0].task_status); //選択肢があるので、selectにする
+      });
+
+      //更新
+      //更新ボタン→保存ボタン
+      $(document).on("click", "#altermodal-get", async function () {
+        $("#alter-Task").data("id", $(this).data("id"));
+        console.log($("#alter-Task").data("id"));
+      });
+
+      //保存ボタンを押した時の処理()
+      $("#alter-Task").on("click", async function () {
+        console.log($(this).data("id"));
+
+        //フォームに入力したデータを取得し、name値(name="taskName"など)の文字列(val)にinputする
+        const requestData = {
+          taskName: $("#altermodal input[name=taskName]").val(),
+          deadline: $("#altermodal input[name=deadline]").val(),
+          category: $("#altermodal select[name=category]").val(), //選択肢があるので、selectにする
+          status: $("#altermodal select[name=status]").val(), //選択肢があるので、selectにする
+        };
+        console.log(requestData);
+
+        //更新APIを実行
+        const response = await httpUpdate(
+          "//" + window.location.host + `/api/tasks/${$(this).data("id")}`,
+          requestData
+        );
+        console.log(response);
+
+        //画面をリロード
+        window.location.reload();
       });
 
       // 削除
-      $(".delete").on("click", function () {
-        const taskName = $(this).data("delete");
-        alert(`下記の内容を削除します。\n ${taskName}`);
+      //削除ボタン→okボタン
+      $(document).on("click", "#delete-button", async function () {
+        $("#deletemodal-get").data("id", $(this).data("id"));
+        $("#deletemodal-body").data("delete", $(this).data("delete"));
+        console.log($("#deletemodal-get").data("id"));
+        console.log($("#deletemodal-body").data("delete"));
+
+        var str = $("#deletemodal-body").data("delete");
+        document.getElementById('deletemodal-body').innerHTML = str;
       });
+
+      //保存ボタンを押した時の処理()
+      $("#deletemodal-get").on("click", async function () {
+        console.log($(this).data("id"));
+
+        //削除APIを実行
+        const response = await httpDelete(
+          "//" + window.location.host + `/api/tasks/${$(this).data("id")}`
+        );
+        console.log(response);
+
+        //画面をリロード
+        window.location.reload();
+      });
+
+      // $(".delete").on("click", function () {
+      //   const taskName = $(this).data("delete");
+      //   alert(`下記の内容を削除します。\n ${taskName}`);
+      // });
 
       // 新規登録
       //⑫ ⑩のhttpPost関数を使うボタン(#create-task)とアクション(onClick)を指定する

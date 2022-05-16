@@ -28,16 +28,17 @@ router.get("/tasks", async function (req, res, next) {
 });
 
 /* タスク一覧を削除するルーティング */
+// router.delete("/tasks/:id", async function (req, res, next) {
+//   const deleteTasksId = await tasks.deleteTasksId(req.params.id);
+//   res.send(deleteTasksId);
+// });
 router.delete("/tasks/:id", async function (req, res, next) {
-  const deleteTasksId = await tasks.deleteTasksId(req.params.id);
+  const deleteTasksId = tasks.deleteTasksId(req.params.id);
+
   res.send(deleteTasksId);
 });
 
 /* タスクを1件取するルーティング */
-// router.get("/tasks/:id", async function (req, res, next) {
-//   const getTasksId = await tasks.getTasksId(req.params.id);
-//   res.send(getTasksId);
-// });
 //②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
 router.get("/tasks/:id", async function (req, res, next) {
   const getTasksId = await tasks.getTasksId(req.params.id);
@@ -48,9 +49,9 @@ router.get("/tasks/:id", async function (req, res, next) {
 
 /* タスクを1件更新するルーティング */
 router.patch("/tasks/:id", async function (req, res, next) {
-  console.log(req.param.id);
   const patchTasksId = await tasks.patchTasksId(req.params.id, req.body);
+  console.log(req.param.id);
+
   res.send(patchTasksId);
 });
-
 module.exports = router;
