@@ -308,11 +308,12 @@
           //任意のテキストとカラーを入れるため、空の配列を用意する
           var status = "";
           statusClass = "";
-
+          var list_coler= "";
           //ステータスの値(1~3)で入れるテキストとカラーを決める
           if (statusValue === 1) {
             status = "未完了";
             statusClass = "category-red";
+            
           } else if (statusValue === 2) {
             status = "進行中";
             statusClass = "category-blue";
@@ -335,12 +336,19 @@
               "今日までのタスクを完了させてください",
               "warning"
               )
-            $("document.deadline").css({ 'color' : 'red'} );
+            list_coler="list-group-item-warning"
+          }else if (deadline < tdeadline && !(item.task_status == 3)) {
+            Swal.fire(
+              "期限切れの未完タスクあり",
+              "期限が過ぎています。<br>早めにタスクを完了させてください",
+              "danger"
+              )
+              list_coler="list-group-item-danger"
           }
 
           //リストを表示
           return `
-          <li class="list-groups">
+          <li class="list-groups list-group-item-action ${list_coler}">
             <div class="row align-items" >
               <div >
                 <span class=${statusClass}></span>
@@ -466,7 +474,7 @@
 
               <div class="col-2" >
                 <span class="small text-muted">メモ：</span>
-                <span>${item.memo}</span>
+                <textarea rows="3" cols="30">${item.memo}</textarea>
               </div>
             </div>
           </li>`;
