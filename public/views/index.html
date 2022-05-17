@@ -326,8 +326,8 @@
           const tmonth = today.getMonth() + 1;
           const tday = today.getDate();
           const tdeadline = tyear + "年" + tmonth + "月" + tday + "日";
-          console.log(tdeadline);
-          console.log(deadline);
+          // console.log(tdeadline);
+          // console.log(deadline);
 
           if (deadline == tdeadline && !(item.task_status == 3)) {
             Swal.fire(
@@ -362,7 +362,7 @@
                 <span><button id="delete-button" data-id="${item.id}" data-delete="${item.task_name}" class="btn btn-danger" data-toggle="modal"  data-target="#deletemodal">削除</button></span>
               </div>
               <div class="col-2">
-                <span class="small text-muted">メモ：　</span>
+                <span class="small text-muted">メモ：</span>
                 <span>${item.memo}</span>
               </div>
             </div>
@@ -481,6 +481,7 @@
         $("#altermodal input[name=deadline]").val(deadline);
         $("#altermodal select[name=category]").val(response[0].category_id); //選択肢があるので、selectにする
         $("#altermodal select[name=status]").val(response[0].task_status); //選択肢があるので、selectにする
+        $("#altermodal textarea[name=memo]").val(response[0].memo);
       });
 
       //更新
@@ -500,8 +501,9 @@
           deadline: $("#altermodal input[name=deadline]").val(),
           category: $("#altermodal select[name=category]").val(), //選択肢があるので、selectにする
           status: $("#altermodal select[name=status]").val(), //選択肢があるので、selectにする
+          memo: $("#altermodal textarea[name=memo]").val(),
         };
-        console.log(requestData);
+        console.log(requestData); //取得
 
         //更新APIを実行
         const response = await httpUpdate(

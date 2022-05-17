@@ -101,7 +101,7 @@ getTasksId = async function (id) {
     // let d = [id];
     // const [rows, fields] = await connection.query(sql, d);
     const sql =
-      "SELECT t_task.id, t_task.category_id, m_category.category_name, t_task.task_name, t_task.deadline, t_task.task_status, t_task.updated_at, t_task.created_at FROM t_task LEFT JOIN m_category ON t_task.category_id = m_category.id WHERE t_task.id = ?";
+      "SELECT t_task.id, t_task.category_id, m_category.category_name, t_task.task_name, t_task.deadline, t_task.task_status, t_task.updated_at, t_task.created_at, t_task.memo FROM t_task LEFT JOIN m_category ON t_task.category_id = m_category.id WHERE t_task.id = ?";
     let d = [id];
     const [rows, fields] = await connection.query(sql, d);
     // console.log(rows); //取得
@@ -126,7 +126,7 @@ patchTasksId = async function (id, body) {
     connection = await mysql.createConnection(config.dbSetting);
     // ここに SQL を記述する
     const sql =
-      "UPDATE t_task SET task_name=?, deadline=?, category_id=?, task_status=?, updated_at=? WHERE id=?;";
+      "UPDATE t_task SET task_name=?, deadline=?, category_id=?, task_status=?, updated_at=?, memo=? WHERE id=?;";
 
     let d = [
       //sqlで「?」となるカラム名を指定
@@ -135,6 +135,7 @@ patchTasksId = async function (id, body) {
       body.category,
       body.status,
       new Date(),
+      body.memo,
       id,
     ];
     const [rows, fields] = await connection.query(sql, d);
