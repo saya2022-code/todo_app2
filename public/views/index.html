@@ -57,10 +57,6 @@
           </div>
         </div>
       </div>
-
-      <!-- <ul id="task-list" class="task-list"> -->
-        <!-- ここにreturn -->
-      <!-- </ul> -->
     </div>
 
     <!-- モーダル 新規登録 -->
@@ -109,6 +105,14 @@
                   <option value="4">趣味</option>
                 </select>
               </div>
+
+              <div class="form-group">
+                <div><label for="memo">メモ</label></div>
+                <div>
+                  <textarea name="memo" id="memo" rows="3" cols="50"></textarea>
+                </div>
+              </div>
+
             </form>
           </div>
           <div class="modal-footer">
@@ -183,6 +187,10 @@
               <option value="2">進行中</option>
               <option value="3">終了</option>
             </select>
+
+            <div><label for="memo">メモ</label></div>
+            <textarea name="memo" id="memo" rows="3" cols="50"></textarea>
+  
           </div>
           <div class="modal-footer">
             <button
@@ -353,6 +361,7 @@
                 <span><button type="button" class="btn btn-primary "data-toggle="modal" data-target="#altermodal" id="altermodal-get" data-id=${item.id}>更新</button></span>
                 <span><button id="delete-button" data-id="${item.id}" data-delete="${item.task_name}" class="btn btn-danger" data-toggle="modal"  data-target="#deletemodal">削除</button></span>
               </div>
+              
             </div>
           </li>`;
         });
@@ -372,7 +381,6 @@
       $("#tab3").on("click", async function () {
         const status_id = $("#panel1").data("id"); 
         console.log($("#panel1").data("id"));//1
-        $('ul#task-list').empty();
 
         const response = await getTasks_yet(
           "//" + window.location.host + "/api/tasks/status/"+status_id
@@ -438,6 +446,7 @@
         });
         console.log(list); //取得
         //ulタグにlistを追加
+        $('ul#task-list').empty();
         $("ul#task-list").append(list); //ulを使う場合、「.id名」ではなく、「タグ名#クラス名」の方が良い。
       });
       
@@ -542,6 +551,7 @@
           taskName: $("[name=task]").val(),
           deadline: $("[name=deadline]").val(),
           category: $("[name=category]").val(),
+          memo: $("[name=memo]").val(),
         };
 
         //１４　⑪で読み込んだhttpPostを利用し、(url, data)を取得。APIを実行する

@@ -22,9 +22,9 @@ postTasks = async function (body) {
 
     // ⑥ここに SQL を記述する(DBに登録なのでInsert)
     const sql =
-      "INSERT INTO todo_app２.t_task (task_name, deadline, category_id) VALUES (?,?,?);";
+      "INSERT INTO todo_app２.t_task (task_name, deadline, category_id, memo) VALUES (?,?,?,?);";
     // VALUES (?,?,?)は下の「body.taskName」の値が入る
-    let d = [body.taskName, body.deadline, body.category];
+    let d = [body.taskName, body.deadline, body.category, body.memo];
     const [rows, fields] = await connection.query(sql, d);
 
     // console.log(rows); //取得
