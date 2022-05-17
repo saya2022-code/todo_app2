@@ -26,6 +26,10 @@ li {
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
+.holdarea {
+  /* display: flex; */
+  padding: 10px;
+}
 .category-orange {
   border-left-color: orange;
   border-left-width: 20px;
