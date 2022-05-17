@@ -345,23 +345,26 @@
               <div >
                 <span class=${statusClass}></span>
               </div>
-              <div class="col-4">
+              <div class="col-2">
                 <span>${item.task_name}</span>
               </div>
               <div class="col-2">
                 <span>${deadline}</span>
-                </div>
+              </div>
               <div class="col-1">
                 <span>${item.category_name}</span>
                 </div>
               <div class="col-1.5">
                 <span>${status}</span>
                 </div>
-              <div class="col-3">
+              <div class="col-2.5" style="margin-left: 20px;">
                 <span><button type="button" class="btn btn-primary "data-toggle="modal" data-target="#altermodal" id="altermodal-get" data-id=${item.id}>更新</button></span>
                 <span><button id="delete-button" data-id="${item.id}" data-delete="${item.task_name}" class="btn btn-danger" data-toggle="modal"  data-target="#deletemodal">削除</button></span>
               </div>
-              
+              <div class="col-2">
+                <span class="small text-muted">メモ：　</span>
+                <span>${item.memo}</span>
+              </div>
             </div>
           </li>`;
         });
