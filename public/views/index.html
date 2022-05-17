@@ -327,6 +327,7 @@
               "今日までのタスクを完了させてください",
               "warning"
               )
+            $("document.deadline").css({ 'color' : 'red'} );
           }
 
           //リストを表示
@@ -359,23 +360,25 @@
         //ulタグにlistを追加
         $("ul#task-list").append(list); //ulを使う場合、「.id名」ではなく、「タグ名#クラス名」の方が良い。
 
+        //ALLを押すと一度リストを消し、再度追加する(重複防止のため)
         $("#tab1").on("click", async function () {
-        $('ul#task-list').show();
-
+          $('ul#task-list').empty();
+          $("ul#task-list").append(list);
         });
+
       });
 
       //未処理タスクを表示
       $("#tab3").on("click", async function () {
         const status_id = $("#panel1").data("id"); 
         console.log($("#panel1").data("id"));//1
-        $('ul#task-list').hide();
+        $('ul#task-list').empty();
 
         const response = await getTasks_yet(
           "//" + window.location.host + "/api/tasks/status/"+status_id
         );
 
-        const listyet = response.map((item) => {
+        const list = response.map((item) => {
 
         //日付　年月日変更
         const date = new Date(item.deadline);
@@ -433,21 +436,10 @@
             </div>
           </li>`;
         });
-        console.log(listyet); //取得
+        console.log(list); //取得
         //ulタグにlistを追加
-        $("ul#task-list-yet").append(listyet); //ulを使う場合、「.id名」ではなく、「タグ名#クラス名」の方が良い。
-
-        // $("#tab1").on("click", async function () {
-        //   $("ul#task-list-yet").hide(listyet);
-        // });
-
-        // $("#tab3").on("click", async function () {
-        //   $("ul#task-list-yet").show(listyet);
-        // });
-
+        $("ul#task-list").append(list); //ulを使う場合、「.id名」ではなく、「タグ名#クラス名」の方が良い。
       });
-      
-
       
       //１件取得
       //更新ボタンを押した時の処理

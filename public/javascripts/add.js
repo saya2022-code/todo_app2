@@ -7,3 +7,19 @@ $("#taskName").focusout(function () {
     $("#taskName-error").text("");
   }
 });
+
+// const array1 = Array.from(new Set(listyet));
+// console.log(array1);
+
+// $("#tab3").on("click", async function () {
+// $('ul#task-list-yet').show(array1);
+// });
+
+// $("#tab3").on("click", async function () {
+//   $('li:contains("終了"),li:contains("未完了")').hide();
+//   $("ul#task-list").show(array1);
+// });
+
+// $("#tab1").on("click", async function () {
+//     $('ul#task-list').remove(listyet);
+//     });
