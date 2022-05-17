@@ -64,3 +64,10 @@ router.get("/tasks/status/:id", async function (req, res, next) {
 
   res.send(getTasks_status);
 });
+
+/* 検索機能のルーティング */
+//②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
+router.get("/search/:keyword", async function (req, res, next) {
+  const searchedItem = await tasks.searchItem(req.params.keyword);
+  res.send(searchedItem);
+});

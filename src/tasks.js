@@ -164,6 +164,26 @@ getTasks_status = async function (id) {
   }
 };
 
+//タスクをキーワードで検索して返却する処理
+searchItem = async function (keyword) {
+  let connection = null;
+  try {
+    connection = await mysql.createConnection(config.dbSetting);
+    //ここにsqlを記述する↓
+    const sql =
+      "SELECT * FROM t_task LEFT JOIN m_category ON t_task.category_id = m_category.id WHERE task_name LIKE ?";
+    keyword = "%" + keyword + "%";
+    let data = [keyword];
+    const [rows, fields] = await connection.query(sql, data);
+    return rows;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    connection.end();
+  }
+};
+
+exports.searchItem = searchItem;
 exports.getTasks_status = getTasks_status;
 
 exports.getTasks = getTasks;
