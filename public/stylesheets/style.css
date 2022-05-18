@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -21,7 +25,6 @@ header {
   width: 100%;
   padding: 20px 40px;
   background: #eee;
-  box-sizing: border-box;
   height: 80px;
 }
 
@@ -33,23 +36,22 @@ header .form-group {
   height: 100%;
 }
 
-.tab_wrap {
-  display: none;
-}
-
 /*タブのスタイル*/
 .tab_wrap {
+  display: none;
   max-width: 100%;
   margin: 50px auto;
 }
 input[type="radio"] {
   display: none;
 }
+
 .tab_area {
-  text-align: center;
+  /* text-align: center; */
   font-size: 0;
-  margin: 0 10px;
+  margin-left: 40px;
 }
+
 .tab1_label {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
@@ -58,7 +60,7 @@ input[type="radio"] {
   width: 100px;
   margin: 0 5px;
   padding: 12px 0;
-  background-color: rgb(0, 60, 255);
+  background-color: rgb(51, 76, 158);
   color: rgb(255, 255, 255);
 }
 .tab2_label {
@@ -69,7 +71,7 @@ input[type="radio"] {
   width: 100px;
   margin: 0 5px;
   padding: 12px 0;
-  background: rgb(39, 236, 0);
+  background: rgb(119, 217, 97);
   color: rgb(255, 255, 255);
 }
 .tab3_label {
@@ -80,8 +82,8 @@ input[type="radio"] {
   width: 100px;
   margin: 0 5px;
   padding: 12px 0;
-  background: rgb(255, 230, 0);
-  color: #000;
+  background: rgb(233, 221, 113);
+  color: rgb(255, 255, 255);
 }
 .tab4_label {
   border-top-right-radius: 10px;
@@ -91,8 +93,13 @@ input[type="radio"] {
   width: 100px;
   margin: 0 5px;
   padding: 12px 0;
-  background: rgb(255, 0, 115);
+  background: rgb(220, 126, 168);
   color: rgb(255, 255, 255);
+}
+/*ここまでがタブのスタイル*/
+
+.clear {
+  clear: left;
 }
 
 main {
@@ -102,6 +109,7 @@ main {
 ul {
   width: 80%;
 }
+
 li {
   list-style-type: none;
   border: 1px solid rgba(0, 0, 0, 0.125);
@@ -112,8 +120,7 @@ li {
   position: relative;
   display: block;
   padding: 0.75rem 1.25rem;
-  margin-top: 10px;
-  margin-bottom: -1px;
+  margin-bottom: 10px;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
@@ -122,7 +129,7 @@ li {
   /* display: flex; */
   padding: 10px;
 }
-.category-orange {
+/* .category-orange {
   border-left-color: orange;
   border-left-width: 20px;
 }
@@ -140,7 +147,7 @@ li {
 .category-red {
   border-left-color: red;
   border-left-width: 20px;
-}
+} */
 
 .list-group-item-danger {
   border-left-color: red;
@@ -153,8 +160,8 @@ li {
 }
 
 #page_top {
-  width: 100px;
-  height: 100px;
+  width: 11%;
+  height: 12%;
   position: fixed;
   right: 10px;
   bottom: 10px;
@@ -172,7 +179,7 @@ li {
   color: #ffffff;
   position: absolute;
   width: 30px;
-  height: 60px;
+  height: 20px;
   top: -5px;
   bottom: 0;
   right: 0;
@@ -180,3 +187,33 @@ li {
   margin: auto;
   text-align: center;
 }
+
+#page_top::after {
+  content: "PAGE TOP";
+  font-size: 13px;
+  color: #fff;
+  position: absolute;
+  top: 30px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  text-align: center;
+}
+
+#icon {
+  color: white;
+  float: right;
+  font-size: 25px;
+  padding: 21px 0;
+  /* displayをnoneに指定してください */
+  display: none;
+}
+
+.delete-button {
+  margin-right: 10px;
+}
+
+/* span {
+  padding: 10px;
+} */

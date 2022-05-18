@@ -16,6 +16,8 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../stylesheets/style.css" />
+    <!-- responsive.css -->
+    <link rel="stylesheet" href="../stylesheets/responsive.css">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     
     <title>Todoアプリ</title>
@@ -38,9 +40,10 @@
       
       <div id="search-form" class="form-group">
         <input name="task-search" type="text" placeholder="タスク検索" />
-        <button class="bi bi-search" id="search-icon">検索</button>
+        <button class="search-button" id="search-icon">検索</button>
       </div>
 
+      <span class="fa fa-bars menu-icon" id="icon"></span>
     </header>
     <p class="search-result"></p>
 
@@ -55,7 +58,7 @@
           <label class="tab1_label" for="tab1">ALL</label>
           <label class="tab2_label" for="tab2">未完了</label>
           <label class="tab3_label" for="tab3">進行中</label>
-          <label class="tab4_label" for="tab4">締切間近</label>
+          <label class="tab4_label" for="tab4">完了</label>
         </div>
     <div class="panel_area">
           <div id="panel1" data-id="4" class="tab_panel">
@@ -76,7 +79,9 @@
           </div>
     </div>
 
+    <div class="clear"></div>
     <a href="#" id="page_top"></a>
+
 
       </div>
     </div>

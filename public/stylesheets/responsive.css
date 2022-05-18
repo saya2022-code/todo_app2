@@ -1,0 +1,87 @@
+@media (max-width: 1000px) {
+  .tab_area {
+    width: 50%;
+    height: 50%;
+    display: flex;
+    /* text-align: center; */
+    font-size: 0;
+    margin-left: 40px;
+  }
+
+  #page_top {
+    width: 15%;
+    height: 10%;
+  }
+
+  #page_top::after {
+    font-size: 2px;
+    color: #fff;
+    position: absolute;
+    top: 20px;
+  }
+}
+
+@media (max-width: 760px) {
+  header {
+    width: 100%;
+    display: flex;
+    position: fixed;
+    font-size: 11px;
+  }
+
+  h1 {
+    width: 100%;
+    display: flex;
+    position: fixed;
+    font-size: 2rem;
+  }
+
+  ul {
+    width: 100%;
+  }
+
+  .row align-items {
+    display: inline-block;
+  }
+
+  span {
+    padding: 10px;
+    display: inline-block;
+  }
+
+  .tab_area {
+    width: 100%;
+    display: flex;
+    text-align: center;
+    font-size: 13px;
+    /* margin-left: 40px; */
+  }
+
+  .tab1_label {
+    font-size: 13px;
+  }
+  .tab2_label {
+    font-size: 13px;
+  }
+  .tab3_label {
+    font-size: 13px;
+  }
+  .tab4_label {
+    font-size: 13px;
+  }
+
+  .btn {
+    text-align: center;
+    width: 100%;
+    font-size: 0.8rem;
+  }
+
+  #search-form {
+    display: none;
+  }
+
+  /* menu-iconクラスのdisplayをblockに指定してください  */
+  .menu-icon {
+    display: block;
+  }
+}
