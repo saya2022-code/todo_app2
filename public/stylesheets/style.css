@@ -1,10 +1,102 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   padding: 50px;
+  padding-top: 100px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00b7ff;
+}
+
+header {
+  position: fixed;
+  display: flex;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 40px;
+  background: #eee;
+  box-sizing: border-box;
+  height: 80px;
+}
+
+header .form-group {
+  margin-left: 50px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.tab_wrap {
+  display: none;
+}
+
+/*タブのスタイル*/
+.tab_wrap {
+  max-width: 100%;
+  margin: 50px auto;
+}
+input[type="radio"] {
+  display: none;
+}
+.tab_area {
+  text-align: center;
+  font-size: 0;
+  margin: 0 10px;
+}
+.tab1_label {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  text-align: center;
+  font-size: 16px;
+  width: 100px;
+  margin: 0 5px;
+  padding: 12px 0;
+  background-color: rgb(0, 60, 255);
+  color: rgb(255, 255, 255);
+}
+.tab2_label {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  text-align: center;
+  font-size: 16px;
+  width: 100px;
+  margin: 0 5px;
+  padding: 12px 0;
+  background: rgb(39, 236, 0);
+  color: rgb(255, 255, 255);
+}
+.tab3_label {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  text-align: center;
+  font-size: 16px;
+  width: 100px;
+  margin: 0 5px;
+  padding: 12px 0;
+  background: rgb(255, 230, 0);
+  color: #000;
+}
+.tab4_label {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  text-align: center;
+  font-size: 16px;
+  width: 100px;
+  margin: 0 5px;
+  padding: 12px 0;
+  background: rgb(255, 0, 115);
+  color: rgb(255, 255, 255);
+}
+
+main {
+  height: 100vw; /* スクロールの演出を見れるようにmainに高さを指定 */
 }
 
 ul {
@@ -58,4 +150,33 @@ li {
 .list-group-item-warning {
   border-left-color: orange;
   border-left-width: 20px;
+}
+
+#page_top {
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  background: #e25407;
+  opacity: 0.6;
+  border-radius: 50%;
+}
+
+/* Font Awesome */
+#page_top::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f106";
+  font-size: 50px;
+  color: #ffffff;
+  position: absolute;
+  width: 30px;
+  height: 60px;
+  top: -5px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  text-align: center;
 }

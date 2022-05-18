@@ -10,6 +10,8 @@ $("#taskName, #task").focusout(function () {
   }
 });
 
+//トップに戻る
+
 // 絞り込み
 //①未処理タスクを表示
 $("#tab2").on("click", async function () {

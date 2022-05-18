@@ -16,8 +16,10 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../stylesheets/style.css" />
-
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    
     <title>Todoアプリ</title>
+
   </head>
   <body>
     <div class="container">
@@ -31,26 +33,36 @@
         +新規登録
       </button>
 
-      <div class="tab_wrap">
-        <label class="tab1_label" for="tab1"><input id="tab1" type="radio" name="tab_btn" checked />ALL</label> 
-        <label class="tab2_label" for="tab2"><input id="tab2" type="radio" name="tab_btn" />未処理</label>
-        <label class="tab3_label" for="tab3"><input id="tab3" type="radio" name="tab_btn" />進行中</label>
-        <label class="tab4_label" for="tab4"></label><input id="tab4" type="radio" name="tab_btn" />完了</label>
-      </div>
-
+      <header>
+        <h1>Todo</h1>
+      
       <div id="search-form" class="form-group">
         <input name="task-search" type="text" placeholder="タスク検索" />
         <button class="bi bi-search" id="search-icon">検索</button>
-        <p class="search-result"></p>
       </div>
-      <br />
 
-        <div class="panel_area">
-          <div id="panel1" data-id="1" class="tab_panel">
+    </header>
+    <p class="search-result"></p>
+
+    <div class="tab_wrap">
+      <label class="tab1_label" for="tab1"><input id="tab1" type="radio" name="tab_btn" checked />ALL</label> 
+      <label class="tab2_label" for="tab2"><input id="tab2" type="radio" name="tab_btn" />未完了</label>
+      <label class="tab3_label" for="tab3"><input id="tab3" type="radio" name="tab_btn" />進行中</label>
+      <label class="tab4_label" for="tab4"></label><input id="tab4" type="radio" name="tab_btn" />完了</label>
+    </div>
+    
+    <div class="tab_area">
+          <label class="tab1_label" for="tab1">ALL</label>
+          <label class="tab2_label" for="tab2">未完了</label>
+          <label class="tab3_label" for="tab3">進行中</label>
+          <label class="tab4_label" for="tab4">締切間近</label>
+        </div>
+    <div class="panel_area">
+          <div id="panel1" data-id="4" class="tab_panel">
             <!--all-->
             <ul id="task-list"></ul>
           </div>
-          <div id="panel2" class="tab_panel">
+          <div id="panel2"  data-id="1" class="tab_panel">
             <!--未処理-->
             <ul id="task-list-yet"></ul>
           </div>
@@ -62,7 +74,9 @@
             <!--締切間近-->
             <ul id="task-list-simekiri"></ul>
           </div>
-        </div>
+    </div>
+
+    <a href="#" id="page_top"></a>
 
       </div>
     </div>

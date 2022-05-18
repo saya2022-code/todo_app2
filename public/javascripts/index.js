@@ -60,11 +60,13 @@ const httpDelete = async function (url) {
 
 //未処理タスクの取得メソッド
 const getTasks_yet = async function (url) {
+  console.log(url);
+
   try {
     const response = await fetch(url, {
       method: "GET", // GET
     });
-    return response.json();
+    return response.json(); // JSON のレスポンスを JavaScript のオブジェクトに変換
   } catch (err) {
     console.log(err);
   }
