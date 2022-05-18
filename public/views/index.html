@@ -33,14 +33,15 @@
 
       <div class="tab_wrap">
         <label class="tab1_label" for="tab1"><input id="tab1" type="radio" name="tab_btn" checked />ALL</label> 
-        <label class="tab2_label" for="tab2"><input id="tab2" type="radio" name="tab_btn" />作業中</label>
-        <label class="tab3_label" for="tab3"><input id="tab3" type="radio" name="tab_btn" />未処理</label>
-        <label class="tab4_label" for="tab4"></label><input id="tab4" type="radio" name="tab_btn" />締切間近</label>
+        <label class="tab2_label" for="tab2"><input id="tab2" type="radio" name="tab_btn" />未処理</label>
+        <label class="tab3_label" for="tab3"><input id="tab3" type="radio" name="tab_btn" />進行中</label>
+        <label class="tab4_label" for="tab4"></label><input id="tab4" type="radio" name="tab_btn" />完了</label>
       </div>
 
       <div id="search-form" class="form-group">
         <input name="task-search" type="text" placeholder="タスク検索" />
         <button class="bi bi-search" id="search-icon">検索</button>
+        <p class="search-result"></p>
       </div>
       <br />
 
@@ -49,13 +50,13 @@
             <!--all-->
             <ul id="task-list"></ul>
           </div>
-          <div id="panel2" data-id="2" class="tab_panel">
-            <!--作業中-->
-            <ul id="task-list-now"></ul>
-          </div>
-          <div id="panel3" class="tab_panel">
+          <div id="panel2" class="tab_panel">
             <!--未処理-->
             <ul id="task-list-yet"></ul>
+          </div>
+          <div id="panel3" data-id="2" class="tab_panel">
+            <!--進行中-->
+            <ul id="task-list-now"></ul>
           </div>
           <div id="panel4" data-id="3" class="tab_panel">
             <!--締切間近-->
@@ -93,6 +94,7 @@
               <div class="form-group">
                 <label for="task">タスク</label>
                 <input type="text" class="form-control" id="task" name="task" />
+                <p id="taskName-error"></p>
               </div>
               <div class="form-group">
                 <label for="deadline">期限</label>
@@ -287,6 +289,7 @@
     <!--⑪ javascript/index.jsのhttpPost関数などを読み込む -->
     <script src="../javascripts/index.js"></script>
     <script src="../javascripts/add.js"></script>
+    <script src="../javascripts/search.js"></script>
 
     <script>
       // 一覧取得
@@ -414,84 +417,6 @@
 
       });
 
-      //未処理タスクを表示
-      $("#tab3").on("click", async function () {
-        const status_id = $("#panel1").data("id"); 
-        console.log($("#panel1").data("id"));//1
-
-        const response = await getTasks_yet(
-          "//" + window.location.host + "/api/tasks/status/"+status_id
-        );
-
-        const list = response.map((item) => {
-          console.log(item);
-        //日付　年月日変更
-        const date = new Date(item.deadline);
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-        const deadline =  year +  "年" + month + "月" + day + "日";
-        // console.log(deadline);
-
-        let categoryClass = (item.category_id);
-        // console.log(categoryClass);
-
-          //ステータスの値(1~3)を取得し、判定値として使う
-           const statusValue = item.task_status;
-
-          //任意のテキストとカラーを入れるため、空の配列を用意する
-          var status = "";
-          statusClass = "";
-
-          //ステータスの値(1~3)で入れるテキストとカラーを決める
-          if (statusValue === 1) {
-            status = "未完了";
-            statusClass = "category-red";
-          } else if (statusValue === 2) {
-            status = "進行中";
-            statusClass = "category-blue";
-          } else if (statusValue === 3) {
-            status = "終了";
-            statusClass = "category-green";
-          }
-
-        //リストを表示
-        return `
-          <li class="list-groups">
-            <div class="row align-items" >
-              <div >
-                <span class=${statusClass}></span>
-              </div>
-              <div class="col-2">
-                <span>${item.task_name}</span>
-              </div>
-              <div class="col-2">
-                <span>${deadline}</span>
-                </div>
-              <div class="col-1">
-                <span>${item.category_name}</span>
-                </div>
-              <div class="col-1.5">
-                <span>${status}</span>
-                </div>
-                <div class="col-2.5" style="margin-left: 20px;">
-                <span><button type="button" class="btn btn-primary "data-toggle="modal" data-target="#altermodal" id="altermodal-get" data-id=${item.id}>更新</button></span>
-                <span><button id="delete-button" data-id="${item.id}" data-delete="${item.task_name}" class="btn btn-danger" data-toggle="modal"  data-target="#deletemodal">削除</button></span>
-              </div>
-
-              <div class="col-2" >
-                <span class="small text-muted">メモ：</span>
-                <textarea rows="3" cols="30">${item.memo}</textarea>
-              </div>
-            </div>
-          </li>`;
-        });
-        console.log(list); //取得
-        //ulタグにlistを追加
-        $('ul#task-list').empty();
-        $("ul#task-list").append(list); //ulを使う場合、「.id名」ではなく、「タグ名#クラス名」の方が良い。
-      });
-      
       //１件取得
       //更新ボタンを押した時の処理
       $(document).on("click", "#altermodal-get", async function () {
@@ -603,99 +528,8 @@
         window.location.reload();
       });
 
-      //検索
-      $("#search-icon").click(async function() {
+      
 
-      let keyword = $("[name=task-search]").val()
-      const data = await  httpGet(
-          "//" + window.location.host + "/api/search/"+ keyword
-        );
-        console.log(data);
-
-      let resultString;
-      if(data.length === 0) {
-        resultString = `キーワード「${keyword}」に一致するタスクはありませんでした。\n
-                    <button onclick="window.location.reload();">戻る</button>`;
-
-      $('ul#task-list').append(resultString);
-      }else{
-        resultString = `キーワード「${keyword}」に一致する${data.length}件のタスクが見つかりました。\n
-                    <button onclick="window.location.reload();">戻る</button>`;
-
-      $('ul#task-list').append(resultString);
-
-      const list = data.map((item) => {
-          console.log(item);
-
-        //日付　年月日変更
-        const date = new Date(item.deadline);
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-        const deadline =  year +  "年" + month + "月" + day + "日";
-        // console.log(deadline);
-
-        let categoryClass = (item.category_id);
-        // console.log(categoryClass);
-
-          //ステータスの値(1~3)を取得し、判定値として使う
-           const statusValue = item.task_status;
-
-          //任意のテキストとカラーを入れるため、空の配列を用意する
-          var status = "";
-          statusClass = "";
-
-          //ステータスの値(1~3)で入れるテキストとカラーを決める
-          if (statusValue === 1) {
-            status = "未完了";
-            statusClass = "category-red";
-          } else if (statusValue === 2) {
-            status = "進行中";
-            statusClass = "category-blue";
-          } else if (statusValue === 3) {
-            status = "終了";
-            statusClass = "category-green";
-          }
-
-        //リストを表示
-        return `
-          <li class="list-groups">
-            <div class="row align-items" >
-              <div >
-                <span class=${statusClass}></span>
-              </div>
-              <div class="col-2">
-                <span>${item.task_name}</span>
-              </div>
-              <div class="col-2">
-                <span>${deadline}</span>
-                </div>
-              <div class="col-1">
-                <span>${item.category_name}</span>
-                </div>
-              <div class="col-1.5">
-                <span>${status}</span>
-                </div>
-                <div class="col-2.5" style="margin-left: 20px;">
-                <span><button type="button" class="btn btn-primary "data-toggle="modal" data-target="#altermodal" id="altermodal-get" data-id=${item.id}>更新</button></span>
-                <span><button id="delete-button" data-id="${item.id}" data-delete="${item.task_name}" class="btn btn-danger" data-toggle="modal"  data-target="#deletemodal">削除</button></span>
-              </div>
-
-              <div class="col-2" >
-                <span class="small text-muted">メモ：</span>
-                <textarea rows="3" cols="30">${item.memo}</textarea>
-              </div>
-            </div>
-          </li>`;
-        });
-        console.log(list); //取得
-        //ulタグにlistを追加
-        $('ul#task-list').empty();
-        $("ul#task-list").append(list); //ulを使う場合、「.id名」ではなく、「タグ名#クラス名」の方が良い。
-      }
-
-      // $("ul#task-list").append(getList(data));
-      });
     </script>
   </body>
 </html>

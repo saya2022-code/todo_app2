@@ -69,3 +69,31 @@ const getTasks_yet = async function (url) {
     console.log(err);
   }
 };
+
+//進行中タスクの取得メソッド
+const getTasks_going = async function (url) {
+  console.log(url); //localhost:3333/api/tasks/status/2
+
+  try {
+    const response = await fetch(url, {
+      method: "GET", // GET
+    });
+    return response.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//終了タスクの取得メソッド
+const getTasks_finish = async function (url) {
+  console.log(url); //localhost:3333/api/tasks/status/3
+
+  try {
+    const response = await fetch(url, {
+      method: "GET", // GET
+    });
+    return response.json();
+  } catch (err) {
+    console.log(err);
+  }
+};

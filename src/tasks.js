@@ -147,14 +147,14 @@ patchTasksId = async function (id, body) {
   }
 };
 
-//個々のステータス取得API ※
+//個々のステータス取得API ※未完了〜完了までこれ一つで良い
 getTasks_status = async function (id) {
   let connection = null;
   try {
     connection = await mysql.createConnection(config.dbSetting);
     //ここにsqlを記述する↓
     const sql =
-      "SELECT t_task.id, t_task.category_id, m_category.category_name, t_task.task_name, t_task.deadline, t_task.task_status, t_task.updated_at, t_task.created_at, t_task.memo FROM t_task LEFT JOIN m_category ON t_task.category_id = m_category.id WHERE  t_task.task_status = 1  order by deadline;";
+      "SELECT t_task.id, t_task.category_id, m_category.category_name, t_task.task_name, t_task.deadline, t_task.task_status, t_task.updated_at, t_task.created_at, t_task.memo FROM t_task LEFT JOIN m_category ON t_task.category_id = m_category.id WHERE  t_task.task_status = ?  order by deadline";
     const [rows, fields] = await connection.query(sql, id);
     return rows;
   } catch (err) {

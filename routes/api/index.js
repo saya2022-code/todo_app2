@@ -65,6 +65,24 @@ router.get("/tasks/status/:id", async function (req, res, next) {
   res.send(getTasks_status);
 });
 
+/* 進行中のタスクを取得するルーティング */
+//②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
+router.get("/tasks/status/:id", async function (req, res, next) {
+  const getTasks_status = await tasks.getTasks_status(req.params.id);
+  console.log(getTasks_status); //
+
+  res.send(getTasks_status);
+});
+
+/* 終了のタスクを取得するルーティング */
+//②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
+router.get("/tasks/status/:id", async function (req, res, next) {
+  const getTasks_status = await tasks.getTasks_status(req.params.id);
+  console.log(getTasks_status); //
+
+  res.send(getTasks_status);
+});
+
 /* 検索機能のルーティング */
 //②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
 router.get("/search/:keyword", async function (req, res, next) {
