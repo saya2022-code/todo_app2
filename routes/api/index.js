@@ -13,24 +13,18 @@ const tasks = require("../../src/tasks.js");
 //   res.render("login.ejs");
 // });
 
-/* ユーザーを登録するルーティング→上手くいかず */
+/*　ログインを認証するルーティング*/
+//②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
+router.post("/login", async function (req, res, next) {
+  const postLogin = tasks.postLogin(req.body);
+  res.send(postLogin);
+});
+
+/* ユーザーを登録するルーティング*/
 //②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
 router.post("/signup", async function (req, res, next) {
   const postUsers = tasks.postUsers(req.body);
   res.send(postUsers);
-
-  // const username = req.body.username;
-  // const email = req.body.email;
-  // const password = req.body.password;
-
-  // connection.query(
-  //   "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
-  //   [username, email, password],
-  //   (error, results) => {
-  //     // 一覧画面にリダイレクトしてください
-  //     console.log(results);
-  //   }
-  // );
 });
 
 /* タスクを登録するルーティング */
