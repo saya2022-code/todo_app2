@@ -10,6 +10,11 @@
 
     <!-- Bootstrap CSS -->
     <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
+  />
+
+    <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -36,14 +41,19 @@
       </button>
 
       <header>
-        <h1>Todo</h1>
+        <h1 class="todo">Todo</h1>
       
       <div id="search-form" class="form-group">
-        <input name="task-search" type="text" placeholder="タスク検索" />
-        <button class="search-button" id="search-icon">検索</button>
+        <i class="bi bi-search" id="search-icon">
+        <input name="task-search" type="text" placeholder="タスク検索" /></i>
       </div>
-
       <span class="fa fa-bars menu-icon" id="icon"></span>
+
+      <div class="form-group">
+        <a href="login.html">ログイン画面へ</a>
+        <a href="signup.html">新規登録画面へ</a>
+      </div>
+      
     </header>
     <p class="search-result"></p>
 
@@ -58,7 +68,7 @@
           <label class="tab1_label" for="tab1">ALL</label>
           <label class="tab2_label" for="tab2">未完了</label>
           <label class="tab3_label" for="tab3">進行中</label>
-          <label class="tab4_label" for="tab4">完了</label>
+          <label class="tab4_label" for="tab4">終了</label>
         </div>
     <div class="panel_area">
           <div id="panel1" data-id="4" class="tab_panel">

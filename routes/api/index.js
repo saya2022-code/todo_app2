@@ -1,10 +1,37 @@
 //Express＝Node.jsでWebアプリの開発をするためのフレームワーク
 var express = require("express");
 var router = express.Router();
+const session = require("express-session");
+const bodyParser = require("body-parser");
 
 //①task.jsのpostTasks(SQL処理)などを使うため、読み込む
 const tasks = require("../../src/tasks.js");
 // const lists = require("../../src/lists.js");
+
+/* ログイン画面に遷移するルーティング→上手くいかず*/
+// router.get("/login", (req, res) => {
+//   res.render("login.ejs");
+// });
+
+/* ユーザーを登録するルーティング→上手くいかず */
+//②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
+router.post("/signup", async function (req, res, next) {
+  const postUsers = tasks.postUsers(req.body);
+  res.send(postUsers);
+
+  // const username = req.body.username;
+  // const email = req.body.email;
+  // const password = req.body.password;
+
+  // connection.query(
+  //   "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
+  //   [username, email, password],
+  //   (error, results) => {
+  //     // 一覧画面にリダイレクトしてください
+  //     console.log(results);
+  //   }
+  // );
+});
 
 /* タスクを登録するルーティング */
 //②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
