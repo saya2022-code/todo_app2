@@ -8,6 +8,14 @@ const bodyParser = require("body-parser");
 const tasks = require("../../src/tasks.js");
 // const lists = require("../../src/lists.js");
 
+router.use(
+  session({
+    secret: "my_secret_key",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
 /* ログイン画面に遷移するルーティング→上手くいかず*/
 // router.get("/login", (req, res) => {
 //   res.render("login.ejs");
