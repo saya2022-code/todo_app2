@@ -243,7 +243,7 @@ searchItem = async function (keyword) {
     connection = await mysql.createConnection(config.dbSetting);
     //ここにsqlを記述する↓
     const sql =
-      "SELECT * FROM t_task LEFT JOIN m_category ON t_task.category_id = m_category.id WHERE task_name LIKE ?";
+      "SELECT t_task.id, t_task.category_id, m_category.category_name, t_task.task_name, t_task.deadline, t_task.task_status, t_task.updated_at, t_task.created_at, t_task.memo FROM t_task LEFT JOIN m_category ON t_task.category_id = m_category.id WHERE task_name LIKE ?";
     keyword = "%" + keyword + "%";
     let data = [keyword];
     const [rows, fields] = await connection.query(sql, data);
