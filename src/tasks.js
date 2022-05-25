@@ -16,37 +16,23 @@ postLogin = async function (body) {
   const email = req.body.email;
   let connection = null; //DB接続の初期化
 
-  try {
-    //SQL接続
-    connection = await mysql.createConnection(config.dbSetting);
-
-    //⑥ここに SQL を記述する(DBに登録なのでInsert)
-    const sql = "SELECT * FROM todo_app２.users WHERE email = ?";
-    let d = [email];
-
-    const [rows, fields] = await connection.query(sql, d);
-
-    console.log(rows);
-    console.log(d);
-
-    const results = rows.length ? rows[0].email : false;
-
-    if (results.length > 0) {
-      if (req.body.password === results[0].password) {
-        //認証する
-        console.log("認証に成功しました");
-        // res.redirect("/list");
-      } else {
-        //失敗
-        console.log("認証に失敗しました");
-        // res.redirect("/login");
+  connection.query(
+    "SELECT * FROM todo_app２.users WHERE email = ?",
+    [email],
+    (error, results) => {
+      if (results.length > 0) {
+        if (req.body.password === results[0].password) {
+          //認証する
+          console.log("認証に成功しました");
+          // res.redirect("/list");
+        } else {
+          //失敗
+          console.log("認証に失敗しました");
+          // res.redirect("/login");
+        }
       }
     }
-  } catch (err) {
-    console.log("エラー" + err);
-  } finally {
-    connection.end();
-  }
+  );
 };
 
 //新規ユーザーの登録
@@ -55,8 +41,6 @@ postUsers = async function (body) {
 
   let connection = null; //DB接続の初期化
   try {
-    //維持ならtryの処理(SQL)をする
-
     //SQL接続
     connection = await mysql.createConnection(config.dbSetting);
 
@@ -67,12 +51,6 @@ postUsers = async function (body) {
     let d = [body.username, body.email, body.password];
     const [rows, fields] = await connection.query(sql, d);
 
-    console.log(rows); //取得
-    console.log(d); //取得
-    //console.log(fields); //undefined
-
-    //⑦fieldsはundefinedなので、rowsのみを返す。
-    //次はjavascript/index.jsでindex.htmlにAPIを反映させる準備
     return rows;
   } catch (err) {
     console.log(err);
