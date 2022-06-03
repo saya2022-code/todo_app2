@@ -23,10 +23,10 @@ router.use(
 
 /*　ログインを認証するルーティング*/
 //②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))
-router.post("/login", async function (req, res, next) {
-  const postLogin = tasks.postLogin(req.body);
-  res.send(postLogin);
-});
+// router.post("/login", async function (req, res, next) {
+//   const postLogin = tasks.postLogin(req.body);
+//   res.send(postLogin);
+// });
 
 /* ユーザーを登録するルーティング*/
 //②router(=express).HTTPメソッド(APIエンドポイントパス,非同期(req,res,next関数))

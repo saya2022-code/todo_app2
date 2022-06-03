@@ -10,30 +10,30 @@ const config = require("../config.js");
  */
 
 //ログインの認証
-postLogin = async function (body) {
-  console.log(body);
+// postLogin = async function (body) {
+//   console.log(body);
 
-  const email = req.body.email;
-  let connection = null; //DB接続の初期化
+//   const email = req.body.email;
+//   let connection = null; //DB接続の初期化
 
-  connection.query(
-    "SELECT * FROM todo_app２.users WHERE email = ?",
-    [email],
-    (error, results) => {
-      if (results.length > 0) {
-        if (req.body.password === results[0].password) {
-          //認証する
-          console.log("認証に成功しました");
-          // res.redirect("/list");
-        } else {
-          //失敗
-          console.log("認証に失敗しました");
-          // res.redirect("/login");
-        }
-      }
-    }
-  );
-};
+//   connection.query(
+//     "SELECT * FROM todo_app２.users WHERE email = ?",
+//     [email],
+//     (error, results) => {
+//       if (results.length > 0) {
+//         if (req.body.password === results[0].password) {
+//           //認証する
+//           console.log("認証に成功しました");
+//           // res.redirect("/list");
+//         } else {
+//           //失敗
+//           console.log("認証に失敗しました");
+//           // res.redirect("/login");
+//         }
+//       }
+//     }
+//   );
+// };
 
 //新規ユーザーの登録
 postUsers = async function (body) {
@@ -233,7 +233,7 @@ searchItem = async function (keyword) {
   }
 };
 
-exports.postLogin = postLogin;
+// exports.postLogin = postLogin;
 exports.postUsers = postUsers;
 exports.searchItem = searchItem;
 exports.getTasks_status = getTasks_status;
